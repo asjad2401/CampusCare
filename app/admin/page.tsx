@@ -4,12 +4,13 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 
-type Tab = 'pending' | 'active' | 'completed' | 'expired' | 'rejected'
+type Tab = 'pending' | 'active' | 'completed' | 'expired' | 'rejected' | 'users'
 
 export default function AdminPage() {
   const [stats, setStats] = useState<any>(null)
   const [tab, setTab] = useState<Tab>('pending')
   const [campaigns, setCampaigns] = useState<any[]>([])
+  const [usersList, setUsersList] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const [rejectReason, setRejectReason] = useState<Record<string, string>>({})
@@ -24,8 +25,15 @@ export default function AdminPage() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`/api/admin/campaigns/stats?status=${tab.toUpperCase()}`).then(r => r.json())
-      .then(d => { setCampaigns(d.campaigns || []); setLoading(false) })
+    if (tab === 'users') {
+      fetch('/api/admin/users').then(r => r.json()).then(d => {
+        setUsersList(d.users || [])
+        setLoading(false)
+      })
+    } else {
+      fetch(`/api/admin/campaigns/stats?status=${tab.toUpperCase()}`).then(r => r.json())
+        .then(d => { setCampaigns(d.campaigns || []); setLoading(false) })
+    }
   }, [tab])
 
   async function action(id: string, act: 'approve' | 'reject' | 'remove') {
@@ -48,6 +56,7 @@ export default function AdminPage() {
     { key: 'completed', label: `🎉 Completed (${stats?.completed ?? '…'})` },
     { key: 'expired', label: `⌛ Expired (${stats?.expired ?? '…'})` },
     { key: 'rejected', label: `❌ Rejected (${stats?.rejected ?? '…'})` },
+    { key: 'users', label: `👥 Users (${stats?.users ?? '…'})` },
   ]
 
   return (
@@ -56,7 +65,7 @@ export default function AdminPage() {
       <div className="container page">
         <div style={{ marginBottom: 32 }}>
           <h1 className="section-title">🛡️ Admin Dashboard</h1>
-          <p className="section-subtitle">Review and moderate fundraising campaigns</p>
+          <p className="section-subtitle">Review and moderate campaigns and registered users</p>
         </div>
 
         {/* Stats */}
@@ -86,11 +95,50 @@ export default function AdminPage() {
           ))}
         </div>
 
-        {/* Campaigns table */}
+        {/* Table View */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: 48 }}><div className="spinner" style={{ width: 40, height: 40 }} /></div>
+        ) : tab === 'users' ? (
+          usersList.length === 0 ? (
+            <div className="empty-state"><div className="empty-state-title">No users registered yet</div></div>
+          ) : (
+            <div className="card">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>User Name</th>
+                    <th>Email Address</th>
+                    <th>Role</th>
+                    <th>Email Status</th>
+                    <th>Campaigns Created</th>
+                    <th>Registered Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {usersList.map((u: any) => (
+                    <tr key={u.id}>
+                      <td style={{ fontWeight: 600 }}>{u.name}</td>
+                      <td style={{ fontSize: 13, color: 'var(--text-secondary)', fontFamily: 'monospace' }}>{u.email}</td>
+                      <td>
+                        <span className={`badge ${u.role === 'ADMIN' ? 'badge-red' : u.role.includes('VERIFIED') ? 'badge-green' : 'badge-gray'}`}>
+                          {u.role}
+                        </span>
+                      </td>
+                      <td>
+                        <span className={`badge ${u.emailVerified ? 'badge-green' : 'badge-yellow'}`}>
+                          {u.emailVerified ? 'Verified' : 'Unverified'}
+                        </span>
+                      </td>
+                      <td style={{ fontSize: 13, fontWeight: 600 }}>{u._count?.campaigns ?? 0}</td>
+                      <td style={{ fontSize: 13, color: 'var(--text-muted)' }}>{new Date(u.createdAt).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
         ) : campaigns.length === 0 ? (
-          <div className="empty-state"><div className="empty-state-icon">🎉</div><div className="empty-state-title">All clear!</div></div>
+          <div className="empty-state"><div className="empty-state-title">All clear!</div></div>
         ) : (
           <div className="card">
             <table className="admin-table">
