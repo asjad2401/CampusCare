@@ -21,7 +21,8 @@ export default function LoginPage() {
       const data = await res.json().catch(() => ({}))
       setLoading(false)
       if (!res.ok) { setError(data.error || 'Login failed'); return }
-      router.push(`/auth/verify-otp?email=${encodeURIComponent(form.email)}&purpose=login`)
+      router.push('/')
+      router.refresh()
     } catch {
       setLoading(false)
       setError('Connection error. Please try again.')
@@ -36,7 +37,7 @@ export default function LoginPage() {
           <div className="auth-header">
             <div className="auth-logo">CampusCare</div>
             <h1 className="auth-title">Welcome back</h1>
-            <p className="auth-subtitle">Sign in with OTP verification</p>
+            <p className="auth-subtitle">Sign in to your account</p>
           </div>
           <div className="card">
             <div className="card-body">
@@ -53,7 +54,7 @@ export default function LoginPage() {
                     value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required />
                 </div>
                 <button type="submit" className="btn btn-primary btn-lg" disabled={loading} style={{ width: '100%' }}>
-                  {loading ? <><span className="spinner" />Sending OTP…</> : 'Send OTP →'}
+                  {loading ? <><span className="spinner" />Signing in…</> : 'Sign In →'}
                 </button>
               </form>
             </div>

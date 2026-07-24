@@ -1,14 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { prisma } from '@/lib/prisma'
-import { redis } from '@/lib/redis'
-import { sendOtpEmail } from '@/lib/email'
+import { signToken, setSessionCookie } from '@/lib/auth'
 import { loginSchema } from '@/lib/validations'
 import { limiters, getClientIp, withRateLimit } from '@/lib/rate-limit'
-
-function generateOtp(): string {
-  return Math.floor(100000 + Math.random() * 900000).toString()
-}
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req)
@@ -46,15 +41,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 })
   }
 
-  // Send OTP for 2-step login
-  const otp = generateOtp()
-  await redis.set(`otp:login:${email}`, otp, { ex: 600 })
-  try {
-    await sendOtpEmail(email, otp, 'login')
-  } catch (err: unknown) {
-    const errorMsg = err instanceof Error ? err.message : 'Failed to send OTP email'
-    return NextResponse.json({ error: errorMsg }, { status: 500 })
-  }
+  const token = await signToken({
+    sub: user.id,
+    email: user.email,
+    role: user.role,
+    name: user.name,
+  })
 
-  return NextResponse.json({ message: 'OTP sent to your email', email })
+  await setSessionCookie(token)
+
+  return NextResponse.json({
+    message: 'Logged in successfully',
+    user: {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    },
+  })
 }
