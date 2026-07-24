@@ -59,6 +59,7 @@ export async function GET(req: NextRequest) {
         status: true,
         deadline: true,
         imageUrl: true,
+        documentUrl: true,
         createdAt: true,
         user: { select: { name: true, id: true } },
       },
@@ -121,6 +122,7 @@ export async function POST(req: NextRequest) {
       iban: data.iban || null,
       mobileWallet: data.mobileWallet || null,
       imageUrl: data.imageUrl || null,
+      documentUrl: data.documentUrl || null,
     },
   })
 

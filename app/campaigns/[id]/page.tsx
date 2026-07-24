@@ -230,6 +230,26 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
               <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>Deadline: {fmt(campaign.deadline)}</div>
             </div>
 
+            {campaign.documentUrl && (
+              <div className="sidebar-card" style={{ border: '1px solid rgba(16, 185, 129, 0.3)', background: 'rgba(16, 185, 129, 0.05)' }}>
+                <div className="sidebar-card-title" style={{ color: 'var(--success)' }}>
+                  Verification Document
+                </div>
+                <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: '6px 0 12px', lineHeight: '1.5' }}>
+                  Verification proof (fee slip, estimate, or document) attached for transparency.
+                </p>
+                <a
+                  href={campaign.documentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary btn-sm"
+                  style={{ width: '100%', textAlign: 'center', display: 'block' }}
+                >
+                  View Proof Document →
+                </a>
+              </div>
+            )}
+
             {!user ? (
               <div className="sidebar-card">
                 <div className="sidebar-card-title">Payment Details</div>

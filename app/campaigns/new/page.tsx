@@ -27,7 +27,7 @@ export default function NewCampaignPage() {
     title: '', description: '', category: 'MEDICAL_EMERGENCY', customCategory: '',
     goalAmount: '', remainingAmount: '', deadline: '',
     bankName: '', accountTitle: '', accountNumber: '', iban: '', mobileWallet: '',
-    imageUrl: '',
+    imageUrl: '', documentUrl: '',
   })
 
   const set = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
@@ -42,7 +42,8 @@ export default function NewCampaignPage() {
       remainingAmount: form.remainingAmount ? parseFloat(form.remainingAmount) : null,
       deadline: new Date(form.deadline).toISOString(),
       customCategory: form.category === 'OTHER' ? form.customCategory : undefined,
-      iban: form.iban || null, mobileWallet: form.mobileWallet || null, imageUrl: form.imageUrl || null,
+      iban: form.iban || null, mobileWallet: form.mobileWallet || null,
+      imageUrl: form.imageUrl || null, documentUrl: form.documentUrl || null,
     }
 
     const res = await fetch('/api/campaigns', {
@@ -138,6 +139,11 @@ export default function NewCampaignPage() {
                   <div className="form-group">
                     <label className="form-label">Campaign Image URL <span className="form-hint">optional</span></label>
                     <input className="form-input" type="url" placeholder="https://…" value={form.imageUrl} onChange={e => set('imageUrl', e.target.value)} />
+                  </div>
+                  <div className="form-group" style={{ gridColumn: '1 / -1' }}>
+                    <label className="form-label">Proof of Need / Verification Document URL <span className="form-hint">optional (e.g. fee slip, hospital estimate, ID proof link)</span></label>
+                    <input className="form-input" type="url" placeholder="https://drive.google.com/... or image link" value={form.documentUrl} onChange={e => set('documentUrl', e.target.value)} />
+                    <span className="form-hint" style={{ marginTop: '4px', display: 'block' }}>Providing verification documents increases donor trust significantly.</span>
                   </div>
                 </div>
 

@@ -43,7 +43,8 @@ export const campaignSchema = z.object({
   accountNumber: z.string().min(4).max(30),
   iban: z.string().max(34).optional().nullable(),
   mobileWallet: z.string().max(20).optional().nullable(),
-  imageUrl: z.string().url().optional().nullable(),
+  imageUrl: z.string().url().optional().nullable().or(z.literal('')),
+  documentUrl: z.string().url().optional().nullable().or(z.literal('')),
 })
 
 export const updateSchema = z.object({

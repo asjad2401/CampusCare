@@ -88,6 +88,35 @@ export default function HomePage() {
 
         {/* Campaigns */}
         <section id="campaigns" className="container page" style={{ paddingTop: 0 }}>
+          {/* Category Pills */}
+          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '16px', marginBottom: '16px', scrollbarWidth: 'none' }}>
+            {CATEGORIES.map(c => {
+              const isActive = category === c.value
+              return (
+                <button
+                  key={c.value}
+                  type="button"
+                  onClick={() => { setCategory(c.value); setPage(1) }}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '20px',
+                    fontSize: '13px',
+                    fontWeight: isActive ? '600' : '500',
+                    whiteSpace: 'nowrap',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    border: isActive ? '1px solid var(--accent-light)' : '1px solid rgba(255, 255, 255, 0.1)',
+                    background: isActive ? 'var(--accent)' : 'rgba(255, 255, 255, 0.04)',
+                    color: isActive ? '#fff' : 'var(--text-muted)',
+                    boxShadow: isActive ? '0 4px 12px rgba(124, 58, 237, 0.3)' : 'none',
+                  }}
+                >
+                  {c.label}
+                </button>
+              )
+            })}
+          </div>
+
           {/* Filters */}
           <div className="filters-bar">
             <form onSubmit={handleSearch} style={{ flex: 2, minWidth: 200 }}>
@@ -98,12 +127,6 @@ export default function HomePage() {
                 onChange={e => setSearchInput(e.target.value)}
               />
             </form>
-            <div className="filter-group">
-              <label className="filter-label">Category</label>
-              <select className="filter-select" value={category} onChange={e => { setCategory(e.target.value); setPage(1) }}>
-                {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-              </select>
-            </div>
             <div className="filter-group">
               <label className="filter-label">Sort by</label>
               <select className="filter-select" value={sort} onChange={e => { setSort(e.target.value); setPage(1) }}>

@@ -79,6 +79,7 @@ model Campaign {
   mobileWallet     String?
 
   imageUrl         String?
+  documentUrl      String?
 
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
