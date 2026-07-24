@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  NUST_VERIFIED
+  DONOR
+  ADMIN
+}
+
+enum CampaignStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  EXPIRED
+  REJECTED
+}
+
+enum CampaignCategory {
+  MEDICAL_EMERGENCY
+  ACADEMIC_FEES
+  ORPHANAGE
+  OLD_HOME
+  COMMUNITY_SERVICE
+  DISASTER_RELIEF
+  STUDENT_WELFARE
+  OTHER
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String
+  passwordHash  String
+  role          Role      @default(DONOR)
+  emailVerified Boolean   @default(false)
+  banned        Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  campaigns Campaign[]
+  comments  Comment[]
+  updates   CampaignUpdate[]
+
+  @@index([email])
+}
+
+model Campaign {
+  id               String           @id @default(uuid())
+  userId           String
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title            String
+  description      String           @db.Text
+  category         CampaignCategory
+  customCategory   String?
+
+  goalAmount       Float?
+  remainingAmount  Float?
+
+  status           CampaignStatus   @default(PENDING)
+  deadline         DateTime
+  completedAt      DateTime?
+  rejectionReason  String?
+
+  // Bank details
+  bankName         String
+  accountTitle     String
+  accountNumber    String
+  iban             String?
+  mobileWallet     String?
+
+  imageUrl         String?
+
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  comments Comment[]
+  updates  CampaignUpdate[]
+
+  @@index([status])
+  @@index([category])
+  @@index([deadline])
+  @@index([userId])
+}
+
+model CampaignUpdate {
+  id              String    @id @default(uuid())
+  campaignId      String
+  campaign        Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  content         String    @db.Text
+  remainingAmount Float?
+
+  createdAt       DateTime  @default(now())
+
+  @@index([campaignId])
+}
+
+model Comment {
+  id         String   @id @default(uuid())
+  campaignId String
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  content    String   @db.VarChar(500)
+
+  createdAt  DateTime @default(now())
+
+  @@index([campaignId])
+}
