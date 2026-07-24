@@ -226,14 +226,16 @@ input, textarea, select, button { font-family: inherit; }
 .filter-search::placeholder { color: var(--text-muted); }
 
 /* ── Hero ── */
-.hero { padding: 80px 0 60px; text-align: center; }
-.hero-title { font-size: clamp(36px, 6vw, 64px); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; }
-.hero-gradient { background: linear-gradient(135deg, #a78bfa 0%, #818cf8 50%, #6ee7b7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.hero-subtitle { font-size: clamp(16px, 2vw, 20px); color: var(--text-secondary); margin-top: 20px; max-width: 600px; margin-left: auto; margin-right: auto; }
-.hero-cta { margin-top: 36px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.hero-stats { margin-top: 48px; display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
-.hero-stat-value { font-size: 28px; font-weight: 800; color: var(--accent-light); }
-.hero-stat-label { font-size: 13px; color: var(--text-muted); }
+.hero { padding: 56px 0 40px; }
+.hero-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
+.hero-content { max-width: 660px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(124, 58, 237, 0.08); border: 1px solid rgba(124, 58, 237, 0.2); font-size: 12px; font-weight: 600; color: var(--accent-light); margin-bottom: 20px; }
+.hero-title { font-size: clamp(32px, 5vw, 50px); font-weight: 800; line-height: 1.18; letter-spacing: -0.02em; color: var(--text-primary); }
+.hero-subtitle { font-size: 16px; color: var(--text-secondary); margin-top: 16px; line-height: 1.65; max-width: 580px; }
+.hero-cta { margin-top: 28px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 24px; align-self: flex-end; }
+.hero-stat-value { font-size: 24px; font-weight: 800; color: var(--text-primary); }
+.hero-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
 
 /* ── Auth pages ── */
 .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }

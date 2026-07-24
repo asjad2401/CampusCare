@@ -66,67 +66,57 @@ export default function HomePage() {
       <main>
         {/* Hero */}
         <section className="hero container">
-          <div className="fade-up">
-            <h1 className="hero-title">
-              Support Your <span className="hero-gradient">Student Community</span>
-            </h1>
-            <p className="hero-subtitle">
-              A verified fundraising platform for students. Post campaigns, discover causes, and make a real difference on campus.
-            </p>
-            <div className="hero-cta">
-              <a href="/campaigns/new" className="btn btn-primary btn-lg">Start a Campaign</a>
-              <a href="#campaigns" className="btn btn-ghost btn-lg">Browse Campaigns</a>
+          <div className="hero-inner fade-up">
+            <div className="hero-content">
+              <div className="hero-badge">
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--success)', display: 'inline-block' }} />
+                Student-Verified Peer Fundraising
+              </div>
+              <h1 className="hero-title">
+                Direct community support for university students
+              </h1>
+              <p className="hero-subtitle">
+                CampusCare connects verified students with direct financial support for tuition fees, emergency medical expenses, and essential student welfare.
+              </p>
+              <div className="hero-cta">
+                <a href="/campaigns/new" className="btn btn-primary btn-lg">Start a Campaign</a>
+                <a href="#campaigns" className="btn btn-ghost btn-lg">Browse Campaigns</a>
+              </div>
             </div>
+
+            {stats.active > 0 && (
+              <div className="hero-stats fade-in">
+                <div>
+                  <div className="hero-stat-value">{stats.active}</div>
+                  <div className="hero-stat-label">Active Campaigns</div>
+                </div>
+                <div style={{ borderLeft: '1px solid var(--border)', paddingLeft: 28 }}>
+                  <div className="hero-stat-value">{stats.total}</div>
+                  <div className="hero-stat-label">Total Completed</div>
+                </div>
+              </div>
+            )}
           </div>
-          {stats.active > 0 && (
-            <div className="hero-stats fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="hero-stat"><div className="hero-stat-value">{stats.active}</div><div className="hero-stat-label">Active Campaigns</div></div>
-              <div className="hero-stat"><div className="hero-stat-value">{stats.total}</div><div className="hero-stat-label">Total Campaigns</div></div>
-            </div>
-          )}
         </section>
 
         {/* Campaigns */}
-        <section id="campaigns" className="container page" style={{ paddingTop: 0 }}>
-          {/* Category Pills */}
-          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '16px', marginBottom: '16px', scrollbarWidth: 'none' }}>
-            {CATEGORIES.map(c => {
-              const isActive = category === c.value
-              return (
-                <button
-                  key={c.value}
-                  type="button"
-                  onClick={() => { setCategory(c.value); setPage(1) }}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: '20px',
-                    fontSize: '13px',
-                    fontWeight: isActive ? '600' : '500',
-                    whiteSpace: 'nowrap',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    border: isActive ? '1px solid var(--accent-light)' : '1px solid rgba(255, 255, 255, 0.1)',
-                    background: isActive ? 'var(--accent)' : 'rgba(255, 255, 255, 0.04)',
-                    color: isActive ? '#fff' : 'var(--text-muted)',
-                    boxShadow: isActive ? '0 4px 12px rgba(124, 58, 237, 0.3)' : 'none',
-                  }}
-                >
-                  {c.label}
-                </button>
-              )
-            })}
-          </div>
-
+        <section id="campaigns" className="container page" style={{ paddingTop: 16 }}>
           {/* Filters */}
           <div className="filters-bar">
-            <form onSubmit={handleSearch} style={{ flex: 2, minWidth: 200 }}>
+            <form onSubmit={handleSearch} style={{ flex: 2, minWidth: 220 }}>
               <input
                 className="filter-search"
-                placeholder="Search campaigns…"
+                placeholder="Search by title, cause, or keywords…"
                 value={searchInput}
                 onChange={e => setSearchInput(e.target.value)}
               />
             </form>
+            <div className="filter-group">
+              <label className="filter-label">Category</label>
+              <select className="filter-select" value={category} onChange={e => { setCategory(e.target.value); setPage(1) }}>
+                {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+              </select>
+            </div>
             <div className="filter-group">
               <label className="filter-label">Sort by</label>
               <select className="filter-select" value={sort} onChange={e => { setSort(e.target.value); setPage(1) }}>
