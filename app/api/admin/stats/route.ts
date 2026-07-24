@@ -12,6 +12,18 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
+  // Sync any NUST student accounts that were assigned DONOR by mistake
+  await prisma.user.updateMany({
+    where: {
+      OR: [
+        { email: { endsWith: '@nust.edu.pk' } },
+        { email: { endsWith: '.nust.edu.pk' } },
+      ],
+      role: 'DONOR',
+    },
+    data: { role: 'STUDENT_VERIFIED' },
+  })
+
   const [total, pending, active, completed, expired, rejected, users] = await Promise.all([
     prisma.campaign.count(),
     prisma.campaign.count({ where: { status: 'PENDING' } }),

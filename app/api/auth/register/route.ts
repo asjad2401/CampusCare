@@ -42,9 +42,10 @@ export async function POST(req: NextRequest) {
   const passwordHash = await bcrypt.hash(password, 12)
 
   // Determine role
-  const isNust = email.endsWith('@nust.edu.pk')
+  const cleanEmail = email.trim().toLowerCase()
+  const isNust = cleanEmail.endsWith('@nust.edu.pk') || cleanEmail.endsWith('.nust.edu.pk')
   const adminEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase())
-  const isAdmin = adminEmails.includes(email.toLowerCase())
+  const isAdmin = adminEmails.includes(cleanEmail)
   const role = isAdmin ? 'ADMIN' : isNust ? 'STUDENT_VERIFIED' : 'DONOR'
 
   // Upsert user (allow re-registration if not verified)

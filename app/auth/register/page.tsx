@@ -29,7 +29,8 @@ export default function RegisterPage() {
     }
   }
 
-  const isNust = form.email.endsWith('@nust.edu.pk')
+  const cleanEmail = form.email.trim().toLowerCase()
+  const isNust = cleanEmail.endsWith('@nust.edu.pk') || cleanEmail.endsWith('.nust.edu.pk')
 
   return (
     <>
