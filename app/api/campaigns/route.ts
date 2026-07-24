@@ -73,7 +73,16 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const session = await getSession()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  if (session.role !== 'STUDENT_VERIFIED' && session.role !== 'NUST_VERIFIED' && session.role !== 'ADMIN') {
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.sub },
+    select: { id: true, role: true, banned: true },
+  })
+  if (!user || user.banned) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  if (user.role !== 'STUDENT_VERIFIED' && user.role !== 'NUST_VERIFIED' && user.role !== 'ADMIN') {
     return NextResponse.json({ error: 'Only verified student accounts can post campaigns' }, { status: 403 })
   }
 
