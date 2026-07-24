@@ -5,13 +5,13 @@ const FROM = process.env.EMAIL_FROM!
 
 export async function sendOtpEmail(email: string, otp: string, purpose: 'signup' | 'login') {
   const subject = purpose === 'signup'
-    ? 'Verify your NUST Donate account'
-    : 'Your NUST Donate login code'
+    ? 'Verify your CampusCare account'
+    : 'Your CampusCare login code'
 
   const action = purpose === 'signup' ? 'activate your account' : 'log in'
 
   const { error } = await resend.emails.send({
-    from: `NUST Donate <${FROM}>`,
+    from: `CampusCare <${FROM}>`,
     to: [email],
     subject,
     html: `
@@ -29,10 +29,10 @@ export async function sendOtpEmail(email: string, otp: string, purpose: 'signup'
                 <tr>
                   <td style="background:linear-gradient(135deg,#7c3aed,#4f46e5);padding:32px;text-align:center;">
                     <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.5px;">
-                      🎓 NUST Donate
+                      🎓 CampusCare
                     </div>
                     <div style="color:rgba(255,255,255,0.8);margin-top:6px;font-size:14px;">
-                      Community Fundraising Platform
+                      Student Community Fundraising Platform
                     </div>
                   </td>
                 </tr>
@@ -54,7 +54,7 @@ export async function sendOtpEmail(email: string, otp: string, purpose: 'signup'
                 <tr>
                   <td style="padding:20px 36px;border-top:1px solid #2a2a3a;">
                     <p style="color:#4a4a6a;font-size:12px;margin:0;text-align:center;">
-                      © 2025 NUST Donate · National University of Sciences and Technology
+                      © ${new Date().getFullYear()} CampusCare · Student Community Platform
                     </p>
                   </td>
                 </tr>

@@ -72,8 +72,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const session = await getSession()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  if (session.role !== 'NUST_VERIFIED' && session.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Only NUST-verified accounts can post campaigns' }, { status: 403 })
+  if (session.role !== 'STUDENT_VERIFIED' && session.role !== 'NUST_VERIFIED' && session.role !== 'ADMIN') {
+    return NextResponse.json({ error: 'Only verified student accounts can post campaigns' }, { status: 403 })
   }
 
   // Rate limit by user ID

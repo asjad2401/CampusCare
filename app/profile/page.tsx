@@ -57,7 +57,7 @@ export default function ProfilePage() {
             <div className="empty-state-icon">📋</div>
             <div className="empty-state-title">No campaigns yet</div>
             <p className="empty-state-text">Start your first fundraising campaign.</p>
-            {(user?.role === 'NUST_VERIFIED' || user?.role === 'ADMIN') && (
+            {(user?.role === 'STUDENT_VERIFIED' || user?.role === 'NUST_VERIFIED' || user?.role === 'ADMIN') && (
               <Link href="/campaigns/new" className="btn btn-primary" style={{ marginTop: 20 }}>🚀 Start Campaign</Link>
             )}
           </div>

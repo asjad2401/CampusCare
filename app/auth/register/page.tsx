@@ -36,9 +36,9 @@ export default function RegisterPage() {
       <div className="auth-page">
         <div className="auth-card fade-up">
           <div className="auth-header">
-            <div className="auth-logo">🎓 NUST Donate</div>
+            <div className="auth-logo">🎓 CampusCare</div>
             <h1 className="auth-title">Create your account</h1>
-            <p className="auth-subtitle">Join the NUST fundraising community</p>
+            <p className="auth-subtitle">Join the student fundraising community</p>
           </div>
           <div className="card">
             <div className="card-body">
@@ -51,11 +51,11 @@ export default function RegisterPage() {
                 </div>
                 <div className="form-group">
                   <label className="form-label">Email Address</label>
-                  <input className="form-input" type="email" placeholder="you@nust.edu.pk"
+                  <input className="form-input" type="email" placeholder="you@example.edu.pk"
                     value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
                   {form.email && (
                     <span className={`form-hint ${isNust ? '' : ''}`} style={{ color: isNust ? 'var(--success)' : 'var(--text-muted)' }}>
-                      {isNust ? '✅ NUST email — you can post campaigns' : 'ℹ️ Non-NUST email — you can browse & donate'}
+                      {isNust ? '✅ Student email — you can post campaigns' : 'ℹ️ General email — you can browse & donate'}
                     </span>
                   )}
                 </div>

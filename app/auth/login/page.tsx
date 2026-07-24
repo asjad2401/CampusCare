@@ -34,7 +34,7 @@ export default function LoginPage() {
       <div className="auth-page">
         <div className="auth-card fade-up">
           <div className="auth-header">
-            <div className="auth-logo">🎓 NUST Donate</div>
+            <div className="auth-logo">🎓 CampusCare</div>
             <h1 className="auth-title">Welcome back</h1>
             <p className="auth-subtitle">Sign in with OTP verification</p>
           </div>

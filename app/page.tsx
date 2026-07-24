@@ -68,10 +68,10 @@ export default function HomePage() {
         <section className="hero container">
           <div className="fade-up">
             <h1 className="hero-title">
-              Support Your <span className="hero-gradient">NUST Community</span>
+              Support Your <span className="hero-gradient">Student Community</span>
             </h1>
             <p className="hero-subtitle">
-              A verified fundraising platform for NUST students. Post campaigns, discover causes, and make a real difference on campus.
+              A verified fundraising platform for students. Post campaigns, discover causes, and make a real difference on campus.
             </p>
             <div className="hero-cta">
               <a href="/campaigns/new" className="btn btn-primary btn-lg">🚀 Start a Campaign</a>

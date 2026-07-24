@@ -45,13 +45,13 @@ export async function POST(req: NextRequest) {
   const isNust = email.endsWith('@nust.edu.pk')
   const adminEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase())
   const isAdmin = adminEmails.includes(email.toLowerCase())
-  const role = isAdmin ? 'ADMIN' : isNust ? 'NUST_VERIFIED' : 'DONOR'
+  const role = isAdmin ? 'ADMIN' : isNust ? 'STUDENT_VERIFIED' : 'DONOR'
 
   // Upsert user (allow re-registration if not verified)
   await prisma.user.upsert({
     where: { email },
-    update: { name, passwordHash, role: role as 'ADMIN' | 'NUST_VERIFIED' | 'DONOR', emailVerified: false },
-    create: { email, name, passwordHash, role: role as 'ADMIN' | 'NUST_VERIFIED' | 'DONOR' },
+    update: { name, passwordHash, role: role as 'ADMIN' | 'STUDENT_VERIFIED' | 'DONOR', emailVerified: false },
+    create: { email, name, passwordHash, role: role as 'ADMIN' | 'STUDENT_VERIFIED' | 'DONOR' },
   })
 
   // Generate OTP & store in Redis with 10-min TTL

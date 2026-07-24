@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: { default: 'NUST Donate — Community Fundraising', template: '%s | NUST Donate' },
-  description: 'A verified fundraising platform for the NUST community — post campaigns, support peers, and make a difference.',
-  keywords: ['NUST', 'fundraising', 'donation', 'Pakistan', 'student'],
-  authors: [{ name: 'NUST Donate' }],
+  title: { default: 'CampusCare — Student Community Fundraising', template: '%s | CampusCare' },
+  description: 'A verified fundraising platform for students — post campaigns, support peers, and make a difference on campus.',
+  keywords: ['campus', 'student', 'fundraising', 'donation', 'community', 'welfare'],
+  authors: [{ name: 'CampusCare' }],
   openGraph: {
-    title: 'NUST Donate',
-    description: 'Community fundraising for NUST students',
+    title: 'CampusCare',
+    description: 'Community fundraising for students',
     type: 'website',
   },
 }

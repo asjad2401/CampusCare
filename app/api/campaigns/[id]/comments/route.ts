@@ -25,8 +25,8 @@ export async function POST(req: NextRequest, { params }: Params) {
   const session = await getSession()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  // Both NUST_VERIFIED and DONOR can comment
-  if (session.role === 'ADMIN' || session.role === 'NUST_VERIFIED' || session.role === 'DONOR') {
+  // All logged-in users can comment
+  if (session.role === 'ADMIN' || session.role === 'STUDENT_VERIFIED' || session.role === 'NUST_VERIFIED' || session.role === 'DONOR') {
     // allowed
   } else {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
