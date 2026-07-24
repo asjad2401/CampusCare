@@ -5,14 +5,14 @@ import Navbar from '@/components/Navbar'
 
 const CATEGORIES = [
   { value: 'ALL', label: 'All Categories' },
-  { value: 'MEDICAL_EMERGENCY', label: '🏥 Medical Emergency' },
-  { value: 'ACADEMIC_FEES', label: '📚 Academic Fees' },
-  { value: 'ORPHANAGE', label: '🏠 Orphanage' },
-  { value: 'OLD_HOME', label: '👴 Old Home' },
-  { value: 'COMMUNITY_SERVICE', label: '🤝 Community Service' },
-  { value: 'DISASTER_RELIEF', label: '🌊 Disaster Relief' },
-  { value: 'STUDENT_WELFARE', label: '🎓 Student Welfare' },
-  { value: 'OTHER', label: '📌 Other' },
+  { value: 'MEDICAL_EMERGENCY', label: 'Medical Emergency' },
+  { value: 'ACADEMIC_FEES', label: 'Academic Fees' },
+  { value: 'ORPHANAGE', label: 'Orphanage' },
+  { value: 'OLD_HOME', label: 'Old Home' },
+  { value: 'COMMUNITY_SERVICE', label: 'Community Service' },
+  { value: 'DISASTER_RELIEF', label: 'Disaster Relief' },
+  { value: 'STUDENT_WELFARE', label: 'Student Welfare' },
+  { value: 'OTHER', label: 'Other' },
 ]
 
 interface Campaign {
@@ -74,7 +74,7 @@ export default function HomePage() {
               A verified fundraising platform for students. Post campaigns, discover causes, and make a real difference on campus.
             </p>
             <div className="hero-cta">
-              <a href="/campaigns/new" className="btn btn-primary btn-lg">🚀 Start a Campaign</a>
+              <a href="/campaigns/new" className="btn btn-primary btn-lg">Start a Campaign</a>
               <a href="#campaigns" className="btn btn-ghost btn-lg">Browse Campaigns</a>
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function HomePage() {
             <form onSubmit={handleSearch} style={{ flex: 2, minWidth: 200 }}>
               <input
                 className="filter-search"
-                placeholder="🔍 Search campaigns…"
+                placeholder="Search campaigns…"
                 value={searchInput}
                 onChange={e => setSearchInput(e.target.value)}
               />
@@ -133,8 +133,7 @@ export default function HomePage() {
             </div>
           ) : campaigns.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-state-icon">🌱</div>
-              <div className="empty-state-title">No campaigns yet</div>
+              <div className="empty-state-title">No campaigns found</div>
               <p className="empty-state-text">Be the first to start a campaign for your cause.</p>
             </div>
           ) : (

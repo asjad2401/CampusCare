@@ -73,7 +73,6 @@ function OtpForm() {
       <div className="auth-page">
         <div className="auth-card fade-up">
           <div className="auth-header">
-            <div style={{ fontSize: 48, marginBottom: 12 }}>📧</div>
             <h1 className="auth-title">Check your email</h1>
             <p className="auth-subtitle">
               We sent a 6-digit code to<br />

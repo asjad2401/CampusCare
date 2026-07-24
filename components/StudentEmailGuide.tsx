@@ -33,7 +33,7 @@ export default function StudentEmailGuide() {
         }}
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span>💡</span> How to check your <strong>@student.nust.edu.pk</strong> inbox?
+          How to check your <strong>@student.nust.edu.pk</strong> inbox?
         </span>
         <span style={{ fontSize: '12px', opacity: 0.8 }}>{open ? '▲ Hide' : '▼ Show Guide'}</span>
       </button>
@@ -58,7 +58,7 @@ export default function StudentEmailGuide() {
             </li>
           </ol>
           <div style={{ marginTop: '12px', background: 'rgba(255, 255, 255, 0.04)', padding: '8px 12px', borderRadius: '8px', fontSize: '12px', color: 'var(--text-muted)' }}>
-            ✨ <strong>Tip:</strong> Once set up, OTP emails from CampusCare will appear directly in your primary Gmail inbox or notifications!
+            <strong>Note:</strong> Once set up, OTP emails from CampusCare will appear directly in your primary Gmail inbox or notifications!
           </div>
         </div>
       )}

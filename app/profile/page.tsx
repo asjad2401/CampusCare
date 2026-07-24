@@ -54,11 +54,10 @@ export default function ProfilePage() {
         <h2 style={{ fontWeight: 800, marginBottom: 20 }}>My Campaigns</h2>
         {campaigns.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-state-icon">📋</div>
             <div className="empty-state-title">No campaigns yet</div>
             <p className="empty-state-text">Start your first fundraising campaign.</p>
             {(user?.role === 'STUDENT_VERIFIED' || user?.role === 'NUST_VERIFIED' || user?.role === 'ADMIN') && (
-              <Link href="/campaigns/new" className="btn btn-primary" style={{ marginTop: 20 }}>🚀 Start Campaign</Link>
+              <Link href="/campaigns/new" className="btn btn-primary" style={{ marginTop: 20 }}>Start Campaign</Link>
             )}
           </div>
         ) : (

@@ -35,11 +35,11 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        <Link href="/" className="navbar-brand">🎓 CampusCare</Link>
+        <Link href="/" className="navbar-brand">CampusCare</Link>
         <div className="navbar-links">
           <Link href="/" className="navbar-link">Browse</Link>
           {user && (user.role === 'STUDENT_VERIFIED' || user.role === 'NUST_VERIFIED' || user.role === 'ADMIN') && (
-            <Link href="/campaigns/new" className="btn btn-primary btn-sm">+ New Campaign</Link>
+            <Link href="/campaigns/new" className="btn btn-primary btn-sm">New Campaign</Link>
           )}
           {user?.role === 'ADMIN' && (
             <Link href="/admin" className="navbar-link">Admin</Link>

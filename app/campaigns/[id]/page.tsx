@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 
 const CATEGORY_LABELS: Record<string, string> = {
-  MEDICAL_EMERGENCY: '🏥 Medical Emergency', ACADEMIC_FEES: '📚 Academic Fees',
-  ORPHANAGE: '🏠 Orphanage', OLD_HOME: '👴 Old Home',
-  COMMUNITY_SERVICE: '🤝 Community Service', DISASTER_RELIEF: '🌊 Disaster Relief',
-  STUDENT_WELFARE: '🎓 Student Welfare', OTHER: '📌 Other',
+  MEDICAL_EMERGENCY: 'Medical Emergency', ACADEMIC_FEES: 'Academic Fees',
+  ORPHANAGE: 'Orphanage', OLD_HOME: 'Old Home',
+  COMMUNITY_SERVICE: 'Community Service', DISASTER_RELIEF: 'Disaster Relief',
+  STUDENT_WELFARE: 'Student Welfare', OTHER: 'Other',
 }
 
 function daysLeft(d: string) { return Math.max(0, Math.ceil((new Date(d).getTime() - Date.now()) / 86400000)) }
@@ -101,7 +101,7 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
   const days = daysLeft(campaign.deadline)
   const pct = campaign.goalAmount && campaign.remainingAmount != null
     ? Math.min(100, Math.round(((campaign.goalAmount - campaign.remainingAmount) / campaign.goalAmount) * 100)) : null
-  const catLabel = campaign.category === 'OTHER' && campaign.customCategory ? `📌 ${campaign.customCategory}` : CATEGORY_LABELS[campaign.category] || campaign.category
+  const catLabel = campaign.category === 'OTHER' && campaign.customCategory ? campaign.customCategory : CATEGORY_LABELS[campaign.category] || campaign.category
   const STATUS_COLOR: Record<string, string> = { ACTIVE: 'badge-green', PENDING: 'badge-yellow', COMPLETED: 'badge-blue', EXPIRED: 'badge-gray', REJECTED: 'badge-red' }
 
   return (
@@ -110,13 +110,13 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
       <div className="container page">
         {campaign.imageUrl
           ? <img src={campaign.imageUrl} alt={campaign.title} className="campaign-detail-img" />
-          : <div className="campaign-detail-img-placeholder"><span style={{ fontSize: 80 }}>{catLabel.split(' ')[0]}</span></div>
+          : <div className="campaign-detail-img-placeholder"><span style={{ fontSize: 20, letterSpacing: '1px', textTransform: 'uppercase' }}>{catLabel}</span></div>
         }
 
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', margin: '20px 0 8px', alignItems: 'center' }}>
           <span className={`badge ${STATUS_COLOR[campaign.status] || 'badge-gray'}`}>{campaign.status}</span>
           <span className="badge badge-purple">{catLabel}</span>
-          {days <= 3 && campaign.status === 'ACTIVE' && <span className="badge badge-red">⚡ {days === 0 ? 'Expires today' : `${days}d left`}</span>}
+          {days <= 3 && campaign.status === 'ACTIVE' && <span className="badge badge-red">{days === 0 ? 'Expires today' : `${days}d left`}</span>}
         </div>
 
         <div className="campaign-detail-layout">
@@ -129,8 +129,8 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
 
             {(isOwner || isAdmin) && campaign.status === 'ACTIVE' && (
               <div style={{ display: 'flex', gap: 10, marginBottom: 24, flexWrap: 'wrap' }}>
-                <button className="btn btn-secondary btn-sm" onClick={() => setShowUpdateForm(v => !v)}>📢 Post Update</button>
-                <button className="btn btn-success btn-sm" onClick={markComplete} disabled={completing}>{completing ? <span className="spinner" /> : '✅ Mark Complete'}</button>
+                <button className="btn btn-secondary btn-sm" onClick={() => setShowUpdateForm(v => !v)}>Post Update</button>
+                <button className="btn btn-success btn-sm" onClick={markComplete} disabled={completing}>{completing ? <span className="spinner" /> : 'Mark Complete'}</button>
               </div>
             )}
 
@@ -172,7 +172,7 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
             {/* Updates */}
             {campaign.updates?.length > 0 && (
               <div style={{ marginBottom: 40 }}>
-                <h3 style={{ fontWeight: 800, marginBottom: 20 }}>📢 Campaign Updates</h3>
+                <h3 style={{ fontWeight: 800, marginBottom: 20 }}>Campaign Updates</h3>
                 <div className="timeline">
                   {campaign.updates.map((u: any) => (
                     <div key={u.id} className="timeline-item">
@@ -190,7 +190,7 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
 
             {/* Comments */}
             <div>
-              <h3 style={{ fontWeight: 800, marginBottom: 20 }}>💬 Comments ({campaign.comments?.length || 0})</h3>
+              <h3 style={{ fontWeight: 800, marginBottom: 20 }}>Comments ({campaign.comments?.length || 0})</h3>
               {user ? (
                 <div style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
                   <div className="comment-avatar">{user.name?.slice(0,2).toUpperCase()}</div>
@@ -223,7 +223,7 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
           {/* Sidebar */}
           <div className="campaign-detail-sidebar">
             <div className="sidebar-card">
-              <div className="sidebar-card-title">⏰ Time Remaining</div>
+              <div className="sidebar-card-title">Time Remaining</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: days <= 3 ? 'var(--danger)' : 'var(--accent-light)' }}>
                 {days === 0 ? 'Expires Today' : `${days} days`}
               </div>
@@ -232,14 +232,14 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
 
             {!user ? (
               <div className="sidebar-card">
-                <div className="sidebar-card-title">💳 Payment Details</div>
+                <div className="sidebar-card-title">Payment Details</div>
                 <div className="alert alert-info" style={{ fontSize: 13 }}>
                   <a href="/auth/login" style={{ color: 'inherit', fontWeight: 600 }}>Sign in</a> to view bank account details.
                 </div>
               </div>
             ) : (
               <div className="sidebar-card">
-                <div className="sidebar-card-title">💳 How to Donate</div>
+                <div className="sidebar-card-title">How to Donate</div>
                 {[
                   ['Bank', campaign.bankName],
                   ['Account Title', campaign.accountTitle],
@@ -251,8 +251,8 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
                     <div className="bank-detail-label">{label}</div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <div className="bank-detail-value">{value}</div>
-                      <button onClick={() => copy(value, label)} title="Copy" style={{ background: 'none', border: 'none', cursor: 'pointer', color: copied === label ? 'var(--success)' : 'var(--text-muted)', padding: 4, fontSize: 14 }}>
-                        {copied === label ? '✅' : '📋'}
+                      <button onClick={() => copy(value, label)} title="Copy" style={{ background: 'none', border: 'none', cursor: 'pointer', color: copied === label ? 'var(--success)' : 'var(--text-muted)', padding: '2px 6px', fontSize: 12, borderRadius: 4 }}>
+                        {copied === label ? 'Copied' : 'Copy'}
                       </button>
                     </div>
                   </div>
@@ -261,13 +261,13 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
             )}
 
             {(isOwner || isAdmin) && campaign.status === 'PENDING' && (
-              <div className="alert alert-warning" style={{ fontSize: 13 }}>⏳ This campaign is awaiting admin approval.</div>
+              <div className="alert alert-warning" style={{ fontSize: 13 }}>This campaign is awaiting admin approval.</div>
             )}
             {campaign.status === 'REJECTED' && (
-              <div className="alert alert-error" style={{ fontSize: 13 }}>❌ Rejected: {campaign.rejectionReason}</div>
+              <div className="alert alert-error" style={{ fontSize: 13 }}>Rejected: {campaign.rejectionReason}</div>
             )}
             {campaign.status === 'COMPLETED' && (
-              <div className="alert alert-success" style={{ fontSize: 13 }}>🎉 This campaign has been marked complete!</div>
+              <div className="alert alert-success" style={{ fontSize: 13 }}>This campaign has been marked complete.</div>
             )}
           </div>
         </div>

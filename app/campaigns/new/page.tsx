@@ -4,14 +4,14 @@ import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 
 const CATEGORIES = [
-  { value: 'MEDICAL_EMERGENCY', label: '🏥 Medical Emergency' },
-  { value: 'ACADEMIC_FEES', label: '📚 Academic Fees' },
-  { value: 'ORPHANAGE', label: '🏠 Orphanage' },
-  { value: 'OLD_HOME', label: '👴 Old Home' },
-  { value: 'COMMUNITY_SERVICE', label: '🤝 Community Service' },
-  { value: 'DISASTER_RELIEF', label: '🌊 Disaster Relief' },
-  { value: 'STUDENT_WELFARE', label: '🎓 Student Welfare' },
-  { value: 'OTHER', label: '📌 Other (specify below)' },
+  { value: 'MEDICAL_EMERGENCY', label: 'Medical Emergency' },
+  { value: 'ACADEMIC_FEES', label: 'Academic Fees' },
+  { value: 'ORPHANAGE', label: 'Orphanage' },
+  { value: 'OLD_HOME', label: 'Old Home' },
+  { value: 'COMMUNITY_SERVICE', label: 'Community Service' },
+  { value: 'DISASTER_RELIEF', label: 'Disaster Relief' },
+  { value: 'STUDENT_WELFARE', label: 'Student Welfare' },
+  { value: 'OTHER', label: 'Other (specify below)' },
 ]
 
 function maxDate() {
@@ -61,14 +61,14 @@ export default function NewCampaignPage() {
       <div className="container page">
         <div style={{ maxWidth: 720, margin: '0 auto' }}>
           <div className="fade-up">
-            <h1 className="section-title">🚀 Start a Campaign</h1>
+            <h1 className="section-title">Start a Campaign</h1>
             <p className="section-subtitle">Your campaign will be reviewed by an admin before going live.</p>
           </div>
           <div className="card" style={{ marginTop: 32 }}>
             <div className="card-body">
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                 {error && <div className="alert alert-error">{error}</div>}
-                <div className="alert alert-info">💡 After submission, your campaign will be reviewed. You'll see it go live once approved.</div>
+                <div className="alert alert-info">After submission, your campaign will be reviewed. You'll see it go live once approved.</div>
 
                 <div className="form-group">
                   <label className="form-label">Campaign Title *</label>
@@ -111,7 +111,7 @@ export default function NewCampaignPage() {
                 </div>
 
                 <hr className="divider" />
-                <h3 style={{ fontWeight: 700, fontSize: 16 }}>💳 Bank / Payment Details</h3>
+                <h3 style={{ fontWeight: 700, fontSize: 16 }}>Bank / Payment Details</h3>
                 <p className="form-hint">These will only be visible to logged-in users.</p>
 
                 <div className="form-grid">
@@ -142,7 +142,7 @@ export default function NewCampaignPage() {
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
-                  {loading ? <><span className="spinner" />Submitting…</> : '🚀 Submit for Review'}
+                  {loading ? <><span className="spinner" />Submitting…</> : 'Submit for Review'}
                 </button>
               </form>
             </div>

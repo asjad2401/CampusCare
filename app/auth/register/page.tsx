@@ -37,7 +37,7 @@ export default function RegisterPage() {
       <div className="auth-page">
         <div className="auth-card fade-up">
           <div className="auth-header">
-            <div className="auth-logo">🎓 CampusCare</div>
+            <div className="auth-logo">CampusCare</div>
             <h1 className="auth-title">Create your account</h1>
             <p className="auth-subtitle">Join the student fundraising community</p>
           </div>
@@ -54,15 +54,15 @@ export default function RegisterPage() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                     <label className="form-label" style={{ margin: 0 }}>Email Address</label>
                     <span style={{ fontSize: '11.5px', color: '#c4b5fd', background: 'rgba(124, 58, 237, 0.15)', padding: '2px 8px', borderRadius: '12px', border: '1px solid rgba(124, 58, 237, 0.3)' }}>
-                      🎓 Campaign posters need student email
+                      Campaign posters need student email
                     </span>
                   </div>
                   <input className="form-input" type="email" placeholder="you@nust.edu.pk"
                     value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
                   <span className="form-hint" style={{ marginTop: '6px', fontSize: '12.5px', display: 'block', color: isNust ? 'var(--success)' : 'var(--text-muted)' }}>
                     {isNust 
-                      ? '✅ Verified student email detected — permissions to post campaigns will be enabled.' 
-                      : 'ℹ️ Signing up with a .nust.edu.pk email is required to post campaigns. General emails can browse & donate.'}
+                      ? 'Verified student email detected — permissions to post campaigns will be enabled.' 
+                      : 'Signing up with a .nust.edu.pk email is required to post campaigns. General emails can browse & donate.'}
                   </span>
                 </div>
                 <div className="form-group">

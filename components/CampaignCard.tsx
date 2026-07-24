@@ -1,14 +1,14 @@
 import Link from 'next/link'
 
 const CATEGORY_LABELS: Record<string, string> = {
-  MEDICAL_EMERGENCY: '🏥 Medical',
-  ACADEMIC_FEES: '📚 Academic',
-  ORPHANAGE: '🏠 Orphanage',
-  OLD_HOME: '👴 Old Home',
-  COMMUNITY_SERVICE: '🤝 Community',
-  DISASTER_RELIEF: '🌊 Disaster',
-  STUDENT_WELFARE: '🎓 Student',
-  OTHER: '📌 Other',
+  MEDICAL_EMERGENCY: 'Medical',
+  ACADEMIC_FEES: 'Academic',
+  ORPHANAGE: 'Orphanage',
+  OLD_HOME: 'Old Home',
+  COMMUNITY_SERVICE: 'Community',
+  DISASTER_RELIEF: 'Disaster',
+  STUDENT_WELFARE: 'Student',
+  OTHER: 'Other',
 }
 
 const STATUS_CLASS: Record<string, string> = {
@@ -17,12 +17,6 @@ const STATUS_CLASS: Record<string, string> = {
   COMPLETED: 'badge-blue',
   EXPIRED: 'badge-gray',
   REJECTED: 'badge-red',
-}
-
-const CATEGORY_EMOJI: Record<string, string> = {
-  MEDICAL_EMERGENCY: '🏥', ACADEMIC_FEES: '📚', ORPHANAGE: '🏠',
-  OLD_HOME: '👴', COMMUNITY_SERVICE: '🤝', DISASTER_RELIEF: '🌊',
-  STUDENT_WELFARE: '🎓', OTHER: '📌',
 }
 
 interface Campaign {
@@ -40,7 +34,7 @@ function daysRemaining(deadline: string) {
 export default function CampaignCard({ campaign }: { campaign: Campaign }) {
   const days = daysRemaining(campaign.deadline)
   const label = campaign.category === 'OTHER' && campaign.customCategory
-    ? `📌 ${campaign.customCategory}`
+    ? campaign.customCategory
     : CATEGORY_LABELS[campaign.category] || campaign.category
 
   const pct = campaign.goalAmount && campaign.remainingAmount != null
@@ -53,7 +47,7 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
         <div className="campaign-card-img">
           {campaign.imageUrl
             ? <img src={campaign.imageUrl} alt={campaign.title} />
-            : <div className="campaign-card-img-placeholder">{CATEGORY_EMOJI[campaign.category] || '📌'}</div>
+            : <div className="campaign-card-img-placeholder" style={{ fontSize: '13px', letterSpacing: '0.5px' }}>{label}</div>
           }
           <div style={{ position: 'absolute', top: 12, left: 12 }}>
             <span className={`badge ${STATUS_CLASS[campaign.status] || 'badge-gray'}`}>{campaign.status}</span>
