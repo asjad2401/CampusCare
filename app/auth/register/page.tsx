@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
+import StudentEmailGuide from '@/components/StudentEmailGuide'
 
 export default function RegisterPage() {
   const [form, setForm] = useState({ name: '', email: '', password: '' })
@@ -68,6 +69,7 @@ export default function RegisterPage() {
                   {loading ? <><span className="spinner" />Sending OTP…</> : 'Create Account →'}
                 </button>
               </form>
+              <StudentEmailGuide />
             </div>
           </div>
           <p className="auth-footer">Already have an account? <Link href="/auth/login">Sign in</Link></p>

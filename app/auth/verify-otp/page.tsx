@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Navbar from '@/components/Navbar'
+import StudentEmailGuide from '@/components/StudentEmailGuide'
 
 function OtpForm() {
   const [otp, setOtp] = useState(['', '', '', '', '', ''])
@@ -99,6 +100,7 @@ function OtpForm() {
                   {loading ? <><span className="spinner" />Verifying…</> : 'Verify Code →'}
                 </button>
               </form>
+              <StudentEmailGuide />
             </div>
           </div>
           <p className="auth-footer" style={{ marginTop: 16 }}>
