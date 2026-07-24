@@ -79,34 +79,35 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Platform Verification Pillars */}
+            {/* How Verification & Aid Works (Process Flow) */}
             <div className="hero-trust-card fade-in">
-              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Platform Pillars
+              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                How Student Aid Works
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                  <div style={{ fontWeight: 700, color: 'var(--accent-light)', fontSize: 14, minWidth: 20 }}>01</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent-light)', background: 'rgba(245,158,11,0.12)', padding: '2px 7px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: '0.05em', flexShrink: 0 }}>Step 1</div>
                   <div style={{ fontSize: 13.5, color: 'var(--text-secondary)' }}>
-                    <strong style={{ color: 'var(--text-primary)', display: 'block' }}>Institutional Email Verification</strong>
-                    Only verified students with official university emails can post campaigns.
+                    <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: 2 }}>Verify Identity</strong>
+                    Students sign up using their official university email (`.student.nust.edu.pk`).
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                  <div style={{ fontWeight: 700, color: 'var(--accent-light)', fontSize: 14, minWidth: 20 }}>02</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent-light)', background: 'rgba(245,158,11,0.12)', padding: '2px 7px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: '0.05em', flexShrink: 0 }}>Step 2</div>
                   <div style={{ fontSize: 13.5, color: 'var(--text-secondary)' }}>
-                    <strong style={{ color: 'var(--text-primary)', display: 'block' }}>Proof of Need Uploads</strong>
-                    Campaign creators attach fee slips or official medical bills for donor review.
+                    <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: 2 }}>Submit Proof of Need</strong>
+                    Campaign creators attach fee vouchers or medical bills for donor transparency.
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                  <div style={{ fontWeight: 700, color: 'var(--accent-light)', fontSize: 14, minWidth: 20 }}>03</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent-light)', background: 'rgba(245,158,11,0.12)', padding: '2px 7px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: '0.05em', flexShrink: 0 }}>Step 3</div>
                   <div style={{ fontSize: 13.5, color: 'var(--text-secondary)' }}>
-                    <strong style={{ color: 'var(--text-primary)', display: 'block' }}>Direct Bank Transfers</strong>
-                    Donors send support directly to student account details without middleman fees.
+                    <strong style={{ color: 'var(--text-primary)', display: 'block', marginBottom: 2 }}>Receive Direct Support</strong>
+                    Donors send support straight to the student's verified bank account.
                   </div>
                 </div>
               </div>
+
               {stats.active > 0 && (
                 <div style={{ paddingTop: 14, borderTop: '1px solid var(--border)', display: 'flex', gap: 24 }}>
                   <div>
@@ -124,13 +125,13 @@ export default function HomePage() {
         </section>
 
         {/* Campaigns */}
-        <section id="campaigns" className="container page" style={{ paddingTop: 8 }}>
+        <section id="campaigns" className="container page" style={{ paddingTop: 0 }}>
           {/* Flat Filter Toolbar */}
           <div className="filters-bar">
             <form onSubmit={handleSearch} style={{ flex: 2, minWidth: 220 }}>
               <input
                 className="filter-search"
-                placeholder="Search by title, cause, or keywords…"
+                placeholder="Search campaigns by title or cause..."
                 value={searchInput}
                 onChange={e => setSearchInput(e.target.value)}
               />
