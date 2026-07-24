@@ -125,7 +125,12 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
           <div>
             <h1 style={{ fontSize: 'clamp(22px,4vw,32px)', fontWeight: 900, lineHeight: 1.2, marginBottom: 12 }}>{campaign.title}</h1>
             <div style={{ color: 'var(--text-muted)', fontSize: 14, marginBottom: 24 }}>
-              by <strong style={{ color: 'var(--text-secondary)' }}>{campaign.user?.name}</strong> · {fmt(campaign.createdAt)} · Deadline: {fmt(campaign.deadline)}
+              by <strong style={{ color: 'var(--text-secondary)' }}>
+                {campaign.isAnonymous
+                  ? (isAdmin ? `Anonymous Student (Verified Creator: ${campaign.user?.name})` : 'Anonymous Student')
+                  : campaign.user?.name
+                }
+              </strong> · {fmt(campaign.createdAt)} · Deadline: {fmt(campaign.deadline)}
             </div>
 
             {(isOwner || isAdmin) && campaign.status === 'ACTIVE' && (

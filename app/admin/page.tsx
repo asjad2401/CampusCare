@@ -159,7 +159,12 @@ export default function AdminPage() {
                       <Link href={`/campaigns/${c.id}`} style={{ fontWeight: 600, color: 'var(--accent-light)' }}>{c.title}</Link>
                       <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{(c.description?.replace(/<[^>]+>/g,'') || '').slice(0,80) + '...'}</div>
                     </td>
-                    <td><div style={{ fontWeight: 600 }}>{c.user?.name}</div><div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{c.user?.email}</div></td>
+                    <td>
+                      <div style={{ fontWeight: 600 }}>
+                        {c.user?.name} {c.isAnonymous && <span style={{ fontSize: 11, color: 'var(--warning)', fontWeight: 500 }}>(Anonymous)</span>}
+                      </div>
+                      <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{c.user?.email}</div>
+                    </td>
                     <td><span className="badge badge-purple" style={{ fontSize: 10 }}>{c.category}</span></td>
                     <td style={{ fontSize: 13, color: 'var(--text-muted)' }}>{new Date(c.deadline).toLocaleDateString()}</td>
                     <td><span className={`badge ${STATUS_CLASS[c.status]}`}>{c.status}</span></td>

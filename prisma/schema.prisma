@@ -81,6 +81,7 @@ model Campaign {
 
   imageUrl         String?
   documentUrl      String?
+  isAnonymous      Boolean          @default(false)
 
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt

@@ -23,7 +23,7 @@ const STATUS_CLASS: Record<string, string> = {
 interface Campaign {
   id: string; title: string; description: string; category: string;
   customCategory?: string; goalAmount?: number; remainingAmount?: number;
-  status: string; deadline: string; imageUrl?: string;
+  status: string; deadline: string; imageUrl?: string; isAnonymous?: boolean;
   user: { name: string; id: string }; createdAt: string;
 }
 
@@ -35,6 +35,7 @@ function daysRemaining(deadline: string) {
 export default function CampaignCard({ campaign }: { campaign: Campaign }) {
   const days = daysRemaining(campaign.deadline)
   const isBloodAppeal = campaign.category === 'BLOOD_DONATION'
+  const authorName = campaign.isAnonymous ? 'Anonymous Student' : campaign.user.name
   const label = campaign.category === 'OTHER' && campaign.customCategory
     ? campaign.customCategory
     : CATEGORY_LABELS[campaign.category] || campaign.category
@@ -73,7 +74,7 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
             </div>
           )}
           <div className="campaign-card-meta">
-            <span className="campaign-card-author">by {campaign.user.name}</span>
+            <span className="campaign-card-author">by {authorName}</span>
             <span className={`campaign-card-deadline ${days <= 3 ? 'urgent' : ''}`}>
               {days === 0 ? 'Expires today' : `${days}d left`}
             </span>

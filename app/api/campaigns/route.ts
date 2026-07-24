@@ -60,6 +60,7 @@ export async function GET(req: NextRequest) {
         deadline: true,
         imageUrl: true,
         documentUrl: true,
+        isAnonymous: true,
         createdAt: true,
         user: { select: { name: true, id: true } },
       },
@@ -99,7 +100,17 @@ export async function POST(req: NextRequest) {
 
   const parsed = campaignSchema.safeParse(body)
   if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.issues[0]?.message }, { status: 400 })
+    const fieldErrors: Record<string, string> = {}
+    parsed.error.issues.forEach(issue => {
+      const path = issue.path[0]
+      if (path && typeof path === 'string') {
+        fieldErrors[path] = issue.message
+      }
+    })
+    return NextResponse.json({
+      error: parsed.error.issues[0]?.message || 'Validation error',
+      fieldErrors,
+    }, { status: 400 })
   }
 
   const data = parsed.data
@@ -108,10 +119,10 @@ export async function POST(req: NextRequest) {
   const deadline = new Date(data.deadline)
   const maxDeadline = new Date(Date.now() + MAX_DEADLINE_DAYS * 24 * 60 * 60 * 1000)
   if (deadline > maxDeadline) {
-    return NextResponse.json({ error: `Deadline cannot exceed ${MAX_DEADLINE_DAYS} days` }, { status: 400 })
+    return NextResponse.json({ error: `Deadline cannot exceed ${MAX_DEADLINE_DAYS} days`, fieldErrors: { deadline: `Deadline cannot exceed ${MAX_DEADLINE_DAYS} days` } }, { status: 400 })
   }
   if (deadline < new Date()) {
-    return NextResponse.json({ error: 'Deadline must be in the future' }, { status: 400 })
+    return NextResponse.json({ error: 'Deadline must be in the future', fieldErrors: { deadline: 'Deadline must be in the future' } }, { status: 400 })
   }
 
   const campaign = await prisma.campaign.create({
@@ -132,6 +143,7 @@ export async function POST(req: NextRequest) {
       mobileWallet: data.mobileWallet || null,
       imageUrl: data.imageUrl || null,
       documentUrl: data.documentUrl || null,
+      isAnonymous: Boolean(data.isAnonymous),
     },
   })
 

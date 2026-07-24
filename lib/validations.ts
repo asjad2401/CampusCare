@@ -22,8 +22,8 @@ export const otpSchema = z.object({
 })
 
 export const campaignSchema = z.object({
-  title: z.string().min(5, 'Title too short').max(120),
-  description: z.string().min(20, 'Description too short').max(5000),
+  title: z.string().trim().min(5, 'Title must be at least 5 characters long').max(120, 'Title cannot exceed 120 characters'),
+  description: z.string().trim().min(20, 'Description must be at least 20 characters long').max(5000, 'Description cannot exceed 5000 characters'),
   category: z.enum([
     'BLOOD_DONATION',
     'MEDICAL_EMERGENCY',
@@ -34,18 +34,27 @@ export const campaignSchema = z.object({
     'DISASTER_RELIEF',
     'STUDENT_WELFARE',
     'OTHER',
-  ]),
-  customCategory: z.string().max(60).optional(),
-  goalAmount: z.number().positive().optional().nullable(),
-  remainingAmount: z.number().positive().optional().nullable(),
-  deadline: z.string().datetime(),
-  bankName: z.string().min(2).max(100),
-  accountTitle: z.string().min(2).max(100),
-  accountNumber: z.string().min(4).max(30),
-  iban: z.string().max(34).optional().nullable(),
-  mobileWallet: z.string().max(20).optional().nullable(),
-  imageUrl: z.string().url().optional().nullable().or(z.literal('')),
-  documentUrl: z.string().url().optional().nullable().or(z.literal('')),
+  ], { message: 'Please select a valid campaign category' }),
+  customCategory: z.string().trim().max(60, 'Custom category cannot exceed 60 characters').optional().nullable(),
+  goalAmount: z.number().positive('Goal amount must be a positive number').max(10000000, 'Goal amount cannot exceed 10,000,000 PKR').optional().nullable(),
+  remainingAmount: z.number().positive('Remaining amount must be a positive number').optional().nullable(),
+  deadline: z.string().refine(val => !isNaN(Date.parse(val)), { message: 'Please select a valid deadline date' }),
+  bankName: z.string().trim().min(2, 'Bank name must be at least 2 characters').max(100, 'Bank name cannot exceed 100 characters'),
+  accountTitle: z.string().trim().min(2, 'Account title must be at least 2 characters').max(100, 'Account title cannot exceed 100 characters'),
+  accountNumber: z.string().trim().min(4, 'Account number must be at least 4 digits').max(30, 'Account number cannot exceed 30 digits').regex(/^[0-9A-Za-z\s-]+$/, 'Account number contains invalid characters'),
+  iban: z.string().trim().transform(v => v || null).pipe(
+    z.string().regex(/^PK[0-9A-Za-z]{22}$/i, 'Invalid Pakistani IBAN format (e.g. PK36SCBL0000001123456702)').nullable()
+  ).optional().or(z.literal('').transform(() => null)),
+  mobileWallet: z.string().trim().transform(v => v || null).pipe(
+    z.string().regex(/^(03[0-9]{9}|\+923[0-9]{9})$/, 'Enter a valid mobile wallet number (e.g., 03001234567)').nullable()
+  ).optional().or(z.literal('').transform(() => null)),
+  imageUrl: z.string().trim().transform(v => v || null).pipe(
+    z.string().url('Please enter a valid image URL (e.g. https://...)').nullable()
+  ).optional().or(z.literal('').transform(() => null)),
+  documentUrl: z.string().trim().transform(v => v || null).pipe(
+    z.string().url('Please enter a valid document URL (e.g. https://...)').nullable()
+  ).optional().or(z.literal('').transform(() => null)),
+  isAnonymous: z.boolean().optional().default(false),
 })
 
 export const updateSchema = z.object({
