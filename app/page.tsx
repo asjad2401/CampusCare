@@ -68,10 +68,6 @@ export default function HomePage() {
         <section className="hero container">
           <div className="hero-inner fade-up">
             <div className="hero-content">
-              <div className="hero-badge">
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--success)', display: 'inline-block' }} />
-                Student-Verified Peer Fundraising
-              </div>
               <h1 className="hero-title">
                 Direct community support for university students
               </h1>
