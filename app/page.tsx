@@ -76,7 +76,10 @@ export default function HomePage() {
               </p>
               <div className="hero-cta">
                 <a href="/campaigns/new" className="btn btn-primary btn-lg">Start a Campaign</a>
-                <a href="#campaigns" className="btn btn-ghost btn-lg">Browse Campaigns</a>
+                <span style={{ fontSize: 13, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)' }} />
+                  Verified Student Email Required
+                </span>
               </div>
             </div>
 
@@ -128,9 +131,9 @@ export default function HomePage() {
           </div>
 
           {/* Results info */}
-          {!loading && (
-            <div style={{ marginBottom: 24, color: 'var(--text-muted)', fontSize: 14 }}>
-              {total === 0 ? 'No campaigns found' : `Showing ${campaigns.length} of ${total} campaigns`}
+          {!loading && total > 0 && (
+            <div style={{ marginBottom: 20, color: 'var(--text-muted)', fontSize: 13, fontWeight: 500 }}>
+              Showing {campaigns.length} of {total} campaigns
               {search && <span> for "<strong style={{ color: 'var(--text-primary)' }}>{search}</strong>"</span>}
             </div>
           )}
@@ -142,8 +145,9 @@ export default function HomePage() {
             </div>
           ) : campaigns.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-state-title">No campaigns found</div>
-              <p className="empty-state-text">Be the first to start a campaign for your cause.</p>
+              <h3 className="empty-state-title">No campaigns match your filters</h3>
+              <p className="empty-state-text">Be the first verified student to create a campaign for this cause.</p>
+              <a href="/campaigns/new" className="btn btn-primary btn-sm">Start a Campaign</a>
             </div>
           ) : (
             <div className="campaigns-grid fade-in">

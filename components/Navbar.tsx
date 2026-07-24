@@ -35,7 +35,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        <Link href="/" className="navbar-brand">CampusCare</Link>
+        <Link href="/" className="navbar-brand">Campus<span>Care</span></Link>
         <div className="navbar-links">
           <Link href="/" className="navbar-link">Browse</Link>
           {user && (user.role === 'STUDENT_VERIFIED' || user.role === 'NUST_VERIFIED' || user.role === 'ADMIN') && (
