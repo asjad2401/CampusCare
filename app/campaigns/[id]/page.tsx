@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 
 const CATEGORY_LABELS: Record<string, string> = {
+  BLOOD_DONATION: '🩸 Urgent Blood Donation Appeal',
   MEDICAL_EMERGENCY: 'Medical Emergency', ACADEMIC_FEES: 'Academic Fees',
   ORPHANAGE: 'Orphanage', OLD_HOME: 'Old Home',
   COMMUNITY_SERVICE: 'Community Service', DISASTER_RELIEF: 'Disaster Relief',

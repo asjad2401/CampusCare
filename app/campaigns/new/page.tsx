@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 
 const CATEGORIES = [
+  { value: 'BLOOD_DONATION', label: '🩸 Urgent Blood Donation Appeal' },
   { value: 'MEDICAL_EMERGENCY', label: 'Medical Emergency' },
   { value: 'ACADEMIC_FEES', label: 'Academic Fees' },
   { value: 'ORPHANAGE', label: 'Orphanage' },

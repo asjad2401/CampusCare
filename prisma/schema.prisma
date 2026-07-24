@@ -25,6 +25,7 @@ enum CampaignStatus {
 }
 
 enum CampaignCategory {
+  BLOOD_DONATION
   MEDICAL_EMERGENCY
   ACADEMIC_FEES
   ORPHANAGE

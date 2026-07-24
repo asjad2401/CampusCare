@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 
 const CATEGORIES = [
   { value: 'ALL', label: 'All Categories' },
+  { value: 'BLOOD_DONATION', label: '🩸 Blood Appeals' },
   { value: 'MEDICAL_EMERGENCY', label: 'Medical Emergency' },
   { value: 'ACADEMIC_FEES', label: 'Academic Fees' },
   { value: 'ORPHANAGE', label: 'Orphanage' },
@@ -216,7 +217,10 @@ export default function HomePage() {
             )
           ) : (
             <div className="campaigns-grid fade-in">
-              {campaigns.map(c => <CampaignCard key={c.id} campaign={c} />)}
+              {[...campaigns]
+                .sort((a, b) => (a.category === 'BLOOD_DONATION' ? -1 : b.category === 'BLOOD_DONATION' ? 1 : 0))
+                .map(c => <CampaignCard key={c.id} campaign={c} />)
+              }
             </div>
           )}
 

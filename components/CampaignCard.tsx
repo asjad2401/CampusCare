@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const CATEGORY_LABELS: Record<string, string> = {
+  BLOOD_DONATION: 'Blood Appeal',
   MEDICAL_EMERGENCY: 'Medical',
   ACADEMIC_FEES: 'Academic',
   ORPHANAGE: 'Orphanage',
@@ -33,6 +34,7 @@ function daysRemaining(deadline: string) {
 
 export default function CampaignCard({ campaign }: { campaign: Campaign }) {
   const days = daysRemaining(campaign.deadline)
+  const isBloodAppeal = campaign.category === 'BLOOD_DONATION'
   const label = campaign.category === 'OTHER' && campaign.customCategory
     ? campaign.customCategory
     : CATEGORY_LABELS[campaign.category] || campaign.category
@@ -43,7 +45,7 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
 
   return (
     <Link href={`/campaigns/${campaign.id}`} style={{ display: 'block', height: '100%' }}>
-      <div className="card campaign-card">
+      <div className={`card campaign-card ${isBloodAppeal ? 'blood-appeal-card' : ''}`}>
         <div className="campaign-card-img">
           {campaign.imageUrl
             ? <img src={campaign.imageUrl} alt={campaign.title} />
@@ -55,7 +57,9 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
         </div>
         <div className="campaign-card-body">
           <div>
-            <span className="badge badge-purple" style={{ marginBottom: 8 }}>{label}</span>
+            <span className={`badge ${isBloodAppeal ? 'badge-red' : 'badge-purple'}`} style={{ marginBottom: 8 }}>
+              {isBloodAppeal ? '🩸 URGENT BLOOD APPEAL' : label}
+            </span>
             <div className="campaign-card-title">{campaign.title}</div>
             <p className="campaign-card-desc">{campaign.description.replace(/<[^>]+>/g, '')}</p>
           </div>

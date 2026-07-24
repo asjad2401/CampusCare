@@ -25,6 +25,7 @@ export const campaignSchema = z.object({
   title: z.string().min(5, 'Title too short').max(120),
   description: z.string().min(20, 'Description too short').max(5000),
   category: z.enum([
+    'BLOOD_DONATION',
     'MEDICAL_EMERGENCY',
     'ACADEMIC_FEES',
     'ORPHANAGE',
