@@ -42,18 +42,18 @@ export const campaignSchema = z.object({
   bankName: z.string().trim().min(2, 'Bank name must be at least 2 characters').max(100, 'Bank name cannot exceed 100 characters'),
   accountTitle: z.string().trim().min(2, 'Account title must be at least 2 characters').max(100, 'Account title cannot exceed 100 characters'),
   accountNumber: z.string().trim().min(4, 'Account number must be at least 4 digits').max(30, 'Account number cannot exceed 30 digits').regex(/^[0-9A-Za-z\s-]+$/, 'Account number contains invalid characters'),
-  iban: z.string().trim().transform(v => v || null).pipe(
-    z.string().regex(/^PK[0-9A-Za-z]{22}$/i, 'Invalid Pakistani IBAN format (e.g. PK36SCBL0000001123456702)').nullable()
-  ).optional().or(z.literal('').transform(() => null)),
-  mobileWallet: z.string().trim().transform(v => v || null).pipe(
-    z.string().regex(/^(03[0-9]{9}|\+923[0-9]{9})$/, 'Enter a valid mobile wallet number (e.g., 03001234567)').nullable()
-  ).optional().or(z.literal('').transform(() => null)),
-  imageUrl: z.string().trim().transform(v => v || null).pipe(
-    z.string().url('Please enter a valid image URL (e.g. https://...)').nullable()
-  ).optional().or(z.literal('').transform(() => null)),
-  documentUrl: z.string().trim().transform(v => v || null).pipe(
-    z.string().url('Please enter a valid document URL (e.g. https://...)').nullable()
-  ).optional().or(z.literal('').transform(() => null)),
+  iban: z.string().trim().optional().nullable().refine(v => !v || /^PK[0-9A-Za-z]{22}$/i.test(v), {
+    message: 'Invalid Pakistani IBAN format (e.g. PK36SCBL0000001123456702)',
+  }),
+  mobileWallet: z.string().trim().optional().nullable().refine(v => !v || /^(03[0-9]{9}|\+923[0-9]{9})$/.test(v), {
+    message: 'Enter a valid mobile wallet number (e.g., 03001234567)',
+  }),
+  imageUrl: z.string().trim().optional().nullable().refine(v => !v || /^https?:\/\/.+/.test(v), {
+    message: 'Please enter a valid image URL (e.g. https://...)',
+  }),
+  documentUrl: z.string().trim().optional().nullable().refine(v => !v || /^https?:\/\/.+/.test(v), {
+    message: 'Please enter a valid document URL (e.g. https://...)',
+  }),
   isAnonymous: z.boolean().optional().default(false),
 })
 
