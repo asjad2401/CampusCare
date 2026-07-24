@@ -76,37 +76,49 @@ export default function HomePage() {
               </p>
               <div className="hero-cta">
                 <a href="/campaigns/new" className="btn btn-primary btn-lg">Start a Campaign</a>
-                <span style={{ fontSize: 13, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)' }} />
-                  Verified Student Email Required
-                </span>
               </div>
             </div>
 
-            {/* Asymmetric Live Trust Rail */}
+            {/* Platform Verification Pillars */}
             <div className="hero-trust-card fade-in">
-              <div className="hero-trust-header">
-                <div className="hero-trust-pulse" />
-                Live Platform Status
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Platform Pillars
               </div>
-              <div className="hero-trust-grid">
-                <div className="hero-trust-stat">
-                  <div className="hero-trust-num">{stats.active || 12}+</div>
-                  <div className="hero-trust-lbl">Active Campaigns</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--accent-light)', fontSize: 14, minWidth: 20 }}>01</div>
+                  <div style={{ fontSize: 13.5, color: 'var(--text-secondary)' }}>
+                    <strong style={{ color: 'var(--text-primary)', display: 'block' }}>Institutional Email Verification</strong>
+                    Only verified students with official university emails can post campaigns.
+                  </div>
                 </div>
-                <div className="hero-trust-stat">
-                  <div className="hero-trust-num">{stats.total || 48}</div>
-                  <div className="hero-trust-lbl">Fully Funded</div>
+                <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--accent-light)', fontSize: 14, minWidth: 20 }}>02</div>
+                  <div style={{ fontSize: 13.5, color: 'var(--text-secondary)' }}>
+                    <strong style={{ color: 'var(--text-primary)', display: 'block' }}>Proof of Need Uploads</strong>
+                    Campaign creators attach fee slips or official medical bills for donor review.
+                  </div>
                 </div>
-                <div className="hero-trust-stat">
-                  <div className="hero-trust-num">100%</div>
-                  <div className="hero-trust-lbl">Peer Verified</div>
-                </div>
-                <div className="hero-trust-stat">
-                  <div className="hero-trust-num">0%</div>
-                  <div className="hero-trust-lbl">Platform Fee</div>
+                <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--accent-light)', fontSize: 14, minWidth: 20 }}>03</div>
+                  <div style={{ fontSize: 13.5, color: 'var(--text-secondary)' }}>
+                    <strong style={{ color: 'var(--text-primary)', display: 'block' }}>Direct Bank Transfers</strong>
+                    Donors send support directly to student account details without middleman fees.
+                  </div>
                 </div>
               </div>
+              {stats.active > 0 && (
+                <div style={{ paddingTop: 14, borderTop: '1px solid var(--border)', display: 'flex', gap: 24 }}>
+                  <div>
+                    <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>{stats.active}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Active Campaigns</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>{stats.total}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Completed</div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
