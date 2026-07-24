@@ -35,11 +35,17 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        <Link href="/" className="navbar-brand">Campus<span>Care</span></Link>
+        <Link href="/" className="navbar-brand">
+          <svg className="navbar-brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" fill="var(--accent-light)" fillOpacity="0.2" stroke="var(--accent-light)" strokeWidth="2" strokeLinejoin="round"/>
+            <path d="M12 8V14M9 11H15" stroke="var(--accent-light)" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          CampusCare
+        </Link>
         <div className="navbar-links">
           <Link href="/" className="navbar-link">Browse</Link>
           {user && (user.role === 'STUDENT_VERIFIED' || user.role === 'NUST_VERIFIED' || user.role === 'ADMIN') && (
-            <Link href="/campaigns/new" className="btn btn-primary btn-sm">New Campaign</Link>
+            <Link href="/campaigns/new" className="btn btn-ghost btn-sm">New Campaign</Link>
           )}
           {user?.role === 'ADMIN' && (
             <Link href="/admin" className="navbar-link">Admin</Link>
@@ -47,7 +53,7 @@ export default function Navbar() {
           {!user ? (
             <>
               <Link href="/auth/login" className="navbar-link">Sign In</Link>
-              <Link href="/auth/register" className="btn btn-primary btn-sm">Join</Link>
+              <Link href="/auth/register" className="btn btn-secondary btn-sm">Join</Link>
             </>
           ) : (
             <div ref={menuRef} style={{ position: 'relative' }}>
