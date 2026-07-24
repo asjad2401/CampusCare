@@ -393,20 +393,17 @@ input, textarea, select, button { font-family: inherit; }
 .countdown-value { font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--accent-light); display: block; }
 .countdown-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
-/* ── Differentiated Weighted Empty State ── */
+/* ── Asymmetric Left-Aligned Empty State ── */
 .empty-state {
-  text-align: center; padding: 56px 28px; background: #161923;
+  text-align: left; padding: 32px; background: var(--bg-secondary);
   border: 1px solid var(--border); border-top: 3px solid var(--accent-light);
-  border-radius: var(--radius-lg); max-width: 520px; margin: 32px auto;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-lg); max-width: 580px; margin: 32px auto;
+  box-shadow: var(--shadow); display: flex; gap: 20px; align-items: flex-start;
 }
-.empty-state-icon-wrapper {
-  width: 48px; height: 48px; border-radius: 50%; background: var(--bg-tertiary);
-  display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
-  color: var(--accent-light); border: 1px solid var(--border);
-}
-.empty-state-title { font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
-.empty-state-text { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+.empty-state-icon { flex-shrink: 0; color: var(--accent-light); margin-top: 2px; }
+.empty-state-content { flex: 1; }
+.empty-state-title { font-family: var(--font-heading); font-size: 19px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.empty-state-text { color: var(--text-secondary); font-size: 14px; margin-bottom: 20px; line-height: 1.6; }
 
 /* ── Pagination ── */
 .pagination { display: flex; gap: 8px; justify-content: center; margin-top: 48px; }
