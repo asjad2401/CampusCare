@@ -51,14 +51,19 @@ export default function RegisterPage() {
                     onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Email Address</label>
-                  <input className="form-input" type="email" placeholder="you@example.edu.pk"
-                    value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
-                  {form.email && (
-                    <span className={`form-hint ${isNust ? '' : ''}`} style={{ color: isNust ? 'var(--success)' : 'var(--text-muted)' }}>
-                      {isNust ? '✅ Student email — you can post campaigns' : 'ℹ️ General email — you can browse & donate'}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <label className="form-label" style={{ margin: 0 }}>Email Address</label>
+                    <span style={{ fontSize: '11.5px', color: '#c4b5fd', background: 'rgba(124, 58, 237, 0.15)', padding: '2px 8px', borderRadius: '12px', border: '1px solid rgba(124, 58, 237, 0.3)' }}>
+                      🎓 Campaign posters need student email
                     </span>
-                  )}
+                  </div>
+                  <input className="form-input" type="email" placeholder="you@nust.edu.pk"
+                    value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
+                  <span className="form-hint" style={{ marginTop: '6px', fontSize: '12.5px', display: 'block', color: isNust ? 'var(--success)' : 'var(--text-muted)' }}>
+                    {isNust 
+                      ? '✅ Verified student email detected — permissions to post campaigns will be enabled.' 
+                      : 'ℹ️ Signing up with a .nust.edu.pk email is required to post campaigns. General emails can browse & donate.'}
+                  </span>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Password</label>
